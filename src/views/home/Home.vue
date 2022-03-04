@@ -8,9 +8,10 @@
     <FeatureView></FeatureView>
     <TabControl
       :titles="['流行', '新款', '精选']"
+      @tabClick="tabClick"
       class="tab-control"
     ></TabControl>
-    <GoodsList :goods="goods['pop'].list">
+    <GoodsList :goods="showGoods">
       <GoodsListItem></GoodsListItem>
     </GoodsList>
   </div>
@@ -48,6 +49,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      currentType: "pop",
     };
   },
   created() {
@@ -60,6 +62,7 @@ export default {
     this.getHomeGoods("sell");
   },
   methods: {
+    //网络请求相关
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
         this.banners = res.data.banner.list;
@@ -74,7 +77,27 @@ export default {
         this.goods[type].page += 1;
       });
     },
+    //事件监听相关
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
+    },
   },
+  computed:{
+    showGoods(){
+      return this.goods[this.currentType].list
+
+    }
+  }
 };
 </script>
 
@@ -90,7 +113,6 @@ export default {
   right: 0;
   top: 0;
   z-index: 9;
-
 }
 .tab-control {
   position: sticky;
@@ -98,6 +120,5 @@ export default {
   overflow: hidden;
 
   z-index: 999;
-
 }
 </style>
