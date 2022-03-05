@@ -1,1 +1,9 @@
-//这里放一下公共的工具方法
+export function debounce(delay) {
+  let timer = null
+
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      return 1
+    }, delay)
+
+}
