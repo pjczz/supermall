@@ -24,8 +24,9 @@ export default {
       click: true,
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
+      observeDOM: true,
     });
-    console.log(this.scroll)
+    console.log(this.scroll);
     if (this.probeType === 2 || this.probeType === 3) {
       this.scroll &&
         this.scroll.on("scroll", (position) => {
@@ -37,7 +38,6 @@ export default {
         this.$emit("pullingUp");
       });
     }
-
   },
   props: {
     probeType: {

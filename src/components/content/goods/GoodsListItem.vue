@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad" />
+  <div class="goods-item" @click="itemCLick">
+    <img :src="showImage"  alt="" @load="imageLoad" />
 
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
@@ -21,11 +21,29 @@ export default {
       },
     },
   },
-  methods:{
-    imageLoad(){
-      this.$bus.$emit('itemImageLoad')//$bus用于发射事件
-    }
-  }
+  methods: {
+    imageLoad() {
+      this.$bus.$emit("itemImageLoad"); //$bus用于发射事件
+    },
+    itemCLick() {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          iid: this.goodsItem.iid,
+        },
+      });
+    },
+  },
+  computed: {
+    showImage() {
+
+      if (this.goodsItem.image) {
+        return this.goodsItem.image;
+      }
+      else{return this.goodsItem.show.img;}
+
+    },
+  },
 };
 </script>
 

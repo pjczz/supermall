@@ -9,8 +9,6 @@
       ref="tabControl1"
       class="tab-control"
       v-show="isTabFixed"
-
-
     ></TabControl>
     <scroll
       class="content"
@@ -25,15 +23,17 @@
       <HomeRecommmendView :recommends="recommends"></HomeRecommmendView>
       <FeatureView></FeatureView>
 
-       <tab-control :titles="['流行', '新款', '精选']"
-                   @tabClick="tabClick"
-                   ref="tabControl2"></tab-control>
+      <tab-control
+        :titles="['流行', '新款', '精选']"
+        @tabClick="tabClick"
+        ref="tabControl2"
+      ></tab-control>
       <GoodsList :goods="showGoods" class="goodsList">
         <GoodsListItem></GoodsListItem>
       </GoodsList>
     </scroll>
 
-    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
+    <BackTop @click.native="backClick" v-show="isShowBackTop"></BackTop >
     <!-- click.native可以实现组件的原生事件值监听 -->
   </div>
 </template>
@@ -52,8 +52,9 @@ import FeatureView from "./childComps/FeatureView.vue";
 import GoodsList from "components/content/goods/GoodsList";
 import GoodsListItem from "components/content/goods/GoodsListItem";
 
-import BackTop from "components/content/backtop/BackTop";
 
+
+import { itemListenerMixin ,backTopMixin} from "common/mixin";
 export default {
   name: "home",
   components: {
@@ -65,9 +66,9 @@ export default {
     GoodsList,
     GoodsListItem,
     scroll,
-    BackTop,
 
   },
+  mixins: { itemListenerMixin,backTopMixin },
   data() {
     return {
       banners: [],
@@ -78,13 +79,15 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop: false,
+      
       refresh: 0,
       tabOffsetTop: 0,
-      isTabFixed: false,
+isTabFixed: false,
       saveY: 0,
+      itemImgListener: null,
     };
   },
+  mixins: [itemListenerMixin ,backTopMixin] ,
   created() {
     //箭头函数的this是上一层的this 也就是created的this created的this也就是组件本身（）
     //函数调用是压入函数栈（保存函数调用过程中所有变量）
@@ -95,22 +98,14 @@ export default {
     this.getHomeGoods("sell");
     //监听item中图片加载完成
   },
-  mounted() {
-    this.$bus.$on("itemImageLoad", () => {
-      this.refresh += 1;
-      if (this.refresh == 30) {
-        console.log("刷新率");
-        this.$refs.scroll.scroll.refresh();
-        this.refresh = 0;
-      }
-    });
-  },
+  mounted() {},
   deactivated() {
     this.saveY = this.$refs.scroll.scroll.y;
+    this.$bus.$off("itemImageLoad", this.itemImgListener);
   },
   activated() {
     this.$refs.scroll.scroll.scrollTo(0, this.saveY, 0);
-    this.$refs.scroll.refresh()
+    this.$refs.scroll.scroll.refresh();
   },
   methods: {
     //网络请求相关
@@ -123,7 +118,7 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then((res) => {
-        console.log(res);
+
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
 
@@ -146,9 +141,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick() {
-      this.$refs.scroll.scroll.scrollTo(0, 0, 500);
-    },
+
+
+
     contentScroll(position) {
       if (position.y < -1000) {
         this.isShowBackTop = true;
@@ -157,7 +152,7 @@ export default {
       }
 
       //把controltabbar 固定
-      this.isTabFixed = (-position.y) > this.tabOffsetTop;
+      this.isTabFixed = -position.y > this.tabOffsetTop;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
@@ -187,7 +182,7 @@ export default {
   color: #fff;
 }
 .tab-control {
-  position:relative;
+  position: relative;
   z-index: 9;
 }
 .content {
