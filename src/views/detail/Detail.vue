@@ -178,8 +178,8 @@ export default {
     addToCart() {
       const product = {};
       product.image = this.topImages[0];
-      product.desc = this.goods.title;
-      product.title = this.goods.desc;
+      product.desc = this.goods.desc;
+      product.title = this.goods.title;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
       this.$store.dispatch('addCart',product)
