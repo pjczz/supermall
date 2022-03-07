@@ -32,7 +32,7 @@
       ></DetailRecommendInfo>
     </Scroll>
     <BackTop @click.native="backClick" v-show="isShowBackTop"></BackTop>
-    <DetailBottomBar></DetailBottomBar>
+    <DetailBottomBar @addToCart="addToCart"></DetailBottomBar>
   </div>
 </template>
 
@@ -174,6 +174,15 @@ export default {
           break;
         }
       }
+    },
+    addToCart() {
+      const product = {};
+      product.image = this.topImages[0];
+      product.desc = this.goods.title;
+      product.title = this.goods.desc;
+      product.price = this.goods.realPrice;
+      product.iid = this.iid;
+      console.log(product);
     },
   },
 };
