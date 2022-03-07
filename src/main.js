@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueLazyload from 'vue-lazyload'
+import toast from 'components/common/Toast'
 Vue.use(VueLazyload)
+Vue.use(toast)
 // 配置项
 Vue.use(VueLazyload, {
   preLoad: 1.3,

@@ -55,6 +55,7 @@ import {
   GoodsParam,
   getRecommend,
 } from "network/detail";
+
 export default {
   name: "Detail",
   components: {
@@ -82,6 +83,8 @@ export default {
       recomments: [],
       ThemeTopYs: [],
       currentIndex: 0,
+      message: "",
+      isShow: false,
     };
   },
   created() {
@@ -182,7 +185,10 @@ export default {
       product.title = this.goods.title;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
-      this.$store.dispatch('addCart',product)
+      this.$store.dispatch("addCart", product).then((res) => {
+        this.$toast.show(res, 2000);
+        console.log(this.$toast)
+      });
     },
   },
 };
