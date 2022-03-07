@@ -182,7 +182,7 @@ export default {
       product.title = this.goods.desc;
       product.price = this.goods.realPrice;
       product.iid = this.iid;
-      console.log(product);
+      this.$store.dispatch('addCart',product)
     },
   },
 };
