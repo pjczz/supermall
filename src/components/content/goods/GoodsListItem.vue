@@ -36,11 +36,12 @@ export default {
   },
   computed: {
     showImage() {
+      return this.goodsItem.image || this.goodsItem.img ||this.goodsItem.show.img
 
-      if (this.goodsItem.image) {
-        return this.goodsItem.image;
-      }
-      else{return this.goodsItem.show.img;}
+    
+    
+    
+    
 
     },
   },
