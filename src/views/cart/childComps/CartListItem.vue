@@ -36,8 +36,8 @@ export default {
   },
   methods: {
     checkCLick() {
-      this.product.checked=!this.product.checked
-      console.log(this.product.checked)
+      this.product.checked = !this.product.checked;
+      console.log(this.product.checked);
     },
   },
 };

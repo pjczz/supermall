@@ -12,6 +12,7 @@
 
 
 <div class="content">
+ 
 <CategorySlideBar :categoryList="categoryList" @clickItem="clickSlideItem" class="category-slidebar"></CategorySlideBar>
 <div class="category-main">
 <CatetorySubmenu :submenuList="subcategoryList" class="catetory-submenu"></CatetorySubmenu>
@@ -133,6 +134,9 @@ export default {
   
 }
 
+
+
+
 .category-nav{
   
  background-color: var(--color-tint);
@@ -149,6 +153,9 @@ export default {
   
   
   
+}
+.category-slidebar{
+  overflow: hidden;
 }
 .tabControl{
   position: sticky;
