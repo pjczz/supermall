@@ -1,6 +1,6 @@
 <template>
   <div class="featrue">
-    <a href="https://act.mogujie.com/zzlx67">
+    <a href="#">
     <img src="~assets/img/home/recommend_bg.jpg" alt="">
     </a>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="home-recommend-view">
     <div class="home-recommend-item" v-for="item in recommends">
-      <a :href="item.link">
+      <a href="#">
 
         <img :src="item.image" alt="" />
       </a>

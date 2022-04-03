@@ -26,12 +26,13 @@ export default {
       this.$bus.$emit("itemImageLoad"); //$bus用于发射事件
     },
     itemCLick() {
+      if(this.goodsItem.iid){
       this.$router.push({
         path: "/detail",
         query: {
           iid: this.goodsItem.iid,
         },
-      });
+      });}
     },
   },
   computed: {

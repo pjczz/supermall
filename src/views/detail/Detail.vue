@@ -101,7 +101,7 @@ export default {
   updated() {
     // this.ThemeTopYs = []; //因为update在每次更新都会回调，这样写可以保证最后的到的数组是最终值
 
-    console.log(this.ThemeTopYs);
+    
   },
   methods: {
     getDetail() {
@@ -131,6 +131,7 @@ export default {
     getRecommend() {
       getRecommend(this.iid).then((res) => {
         this.recomments = res.data.list;
+        console.log(res.data)
       });
     },
     imageLoad() {

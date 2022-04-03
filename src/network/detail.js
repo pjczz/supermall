@@ -20,7 +20,7 @@ export function getRecommend(iid) {
 
 export class Goods {
   constructor(itemInfo, columns, services) {
-    this.desc = itemInfo.desc;
+    
     this.title = itemInfo.title;
     this.desc = itemInfo.desc;
     this.newPrice = itemInfo.price;
@@ -29,6 +29,7 @@ export class Goods {
     this.columns = columns;
     this.services = services;
     this.realPrice = itemInfo.lowNowPrice;
+    
   }
 }
 

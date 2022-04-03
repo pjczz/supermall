@@ -2,7 +2,7 @@
 
     <Swiper>
       <SwiperItem v-for="item in banners">
-        <a :href="item.link">
+        <a href="#">
           <img :src="item.image" alt="" @load="imageLoad" >
         </a>
       </SwiperItem>
